@@ -101,6 +101,13 @@ test("Ollama: the models pulled onto this machine", async (t) => {
   const r = await checkProvider("ollama");
   if (r.state === "unreachable") return t.skip(`not run: no Ollama answering on this machine (${r.detail})`);
   assert.equal(r.state, "ok", JSON.stringify(r).slice(0, 300));
+  if (r.state !== "ok") return;
+  // A ":cloud" model is listed here but answers from Ollama's servers. It must
+  // never be presented as on this device.
+  for (const m of r.models) {
+    assert.equal(m.runsAt, /[:-]cloud$/i.test(m.id) ? "provider cloud" : "this device", m.id);
+  }
+  t.diagnostic(`${r.models.length} models: ${r.models.map((m) => `${m.id} (${m.runsAt})`).join(", ")}`);
 });
 
 test("the book is judged only against providers that answered", async (t) => {

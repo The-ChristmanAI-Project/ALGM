@@ -71,6 +71,13 @@ export type LiveModel = {
   lifecycle?: "active" | "legacy" | "deprecated";
   endOfLife?: string;
   owner?: string;
+  /**
+   * Where the words go when this model answers, when the list says. An Ollama
+   * model tagged ":cloud" is listed on your machine but runs on Ollama's
+   * servers — the prompt leaves the device. That is the one thing a local
+   * list must never blur.
+   */
+  runsAt?: "this device" | "provider cloud";
 };
 
 export type ProviderResult =
@@ -159,12 +166,21 @@ export function parseProvider(id: ProviderId, body: any): LiveModel[] {
         };
       });
     case "ollama":
-      return arr(body?.models).filter((m) => str(m?.name)).map((m) => ({
-        provider: id,
-        id: m.name,
-        name: [m.details?.family, m.details?.parameter_size, m.details?.quantization_level].filter(Boolean).join(" · ") || undefined,
-        released: str(m.modified_at),
-      }));
+      return arr(body?.models).filter((m) => str(m?.name)).map((m) => {
+        const caps: string[] | undefined = Array.isArray(m.capabilities) ? m.capabilities.map(String) : undefined;
+        const cloud = /[:-]cloud$/i.test(String(m.name));
+        return {
+          provider: id,
+          id: m.name,
+          name: [m.details?.family, m.details?.parameter_size, m.details?.quantization_level].filter(Boolean).join(" · ") || undefined,
+          contextTokens: num(m.details?.context_length),
+          // Ollama reports these itself (0.x "capabilities"). Older Ollama sends none, and then nothing is claimed.
+          reports: caps
+            ? { chat: caps.includes("completion"), tools: caps.includes("tools"), vision: caps.includes("vision") }
+            : undefined,
+          runsAt: cloud ? "provider cloud" : "this device",
+        };
+      });
   }
 }
 

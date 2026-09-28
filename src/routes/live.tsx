@@ -245,6 +245,13 @@ function UnverifiedList({ models, providers }: { models: LiveModel[]; providers:
                 {m.lifecycle && m.lifecycle !== "active" && (
                   <Badge tone="warn">{m.lifecycle}{m.endOfLife ? ` · ends ${day(m.endOfLife)}` : ""}</Badge>
                 )}
+                {m.runsAt === "provider cloud" && <Badge tone="bad">Runs in the provider's cloud · leaves this device</Badge>}
+                {m.runsAt === "this device" && <Badge tone="good">On this device</Badge>}
+                {m.reports && (
+                  <span className="text-faint">
+                    reports: {(Object.entries(m.reports) as [string, boolean | undefined][]).filter(([, v]) => v).map(([k]) => k.replace("_", "-")).join(", ") || "none"}
+                  </span>
+                )}
                 {m.contextTokens && <span className="text-faint">{m.contextTokens.toLocaleString()} tokens in</span>}
                 {m.inputModalities?.length ? <span className="text-faint">in: {m.inputModalities.join(", ").toLowerCase()}</span> : null}
                 {m.released && <span className="text-faint">released {day(m.released)}</span>}
