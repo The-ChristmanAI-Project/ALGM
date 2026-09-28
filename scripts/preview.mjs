@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Owns :8081, the built-output QA preview.
+ * Owns :9099, the built-output QA preview.
  *
  * `vite preview` is strictPort, so a preview left over from an earlier turn
  * both fails the next start and keeps serving the previous build's output.
@@ -23,11 +23,11 @@ import {
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-const PREVIEW_PORT = 8081;
+const PREVIEW_PORT = 9099;
 const PREVIEW_URL = `http://127.0.0.1:${PREVIEW_PORT}/`;
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-// The Grok export wrote these into `.grok/`, which no longer exists.
+
 const PID_FILE = join(ROOT, ".preview.pid");
 const LOG_FILE = join(ROOT, ".preview.log");
 const READY_TIMEOUT_MS = Number(process.env.PREVIEW_READY_TIMEOUT_MS || 60000);
