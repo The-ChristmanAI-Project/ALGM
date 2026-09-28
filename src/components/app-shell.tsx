@@ -11,7 +11,7 @@ import {
   Shield,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
-import { LatticeMark } from "@/components/marks";
+import { StoneMark } from "@/components/marks";
 import { RulesLine } from "@/components/rules-covenant";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -85,7 +85,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-dvh bg-bg text-fg">
       <aside className="fixed inset-y-0 left-0 z-20 hidden w-52 flex-col border-r border-line bg-bg/80 px-3 py-5 md:flex">
         <Link to="/" className="mb-8 flex items-center gap-2.5 px-2">
-          <LatticeMark className="size-7" />
+          <StoneMark className="size-7" />
           <div>
             <p className="font-display text-lg leading-none tracking-tight">ALGM</p>
             <p className="mt-1 text-xs tracking-[0.14em] text-muted uppercase">On-device</p>
@@ -105,7 +105,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-bg/90 px-4 py-3 backdrop-blur-sm md:hidden">
         <Link to="/" className="flex items-center gap-2">
-          <LatticeMark className="size-6" />
+          <StoneMark className="size-6" />
           <span className="font-display text-lg leading-none">ALGM</span>
         </Link>
         <Link
