@@ -6,6 +6,7 @@ import {
   Layers,
   MoreHorizontal,
   Radar,
+  Radio,
   Scale,
   Shield,
 } from "lucide-react";
@@ -26,6 +27,7 @@ const PRIMARY = [
 
 const MORE = [
   { to: "/rules", label: "Rules", icon: Scale },
+  { to: "/live", label: "Live atlas", icon: Radio },
   { to: "/stack", label: "Stack", icon: Layers },
   { to: "/watch", label: "Watch", icon: Radar },
 ] as const;
