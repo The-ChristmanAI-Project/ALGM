@@ -183,11 +183,11 @@ test("stopOutcome reports a verified free port", () => {
     after: { pids: [] },
   });
   assert.equal(stopped.ok, true);
-  assert.match(stopped.message, /stopped pid\(s\) 50 — port 8081 is free/);
+  assert.match(stopped.message, /stopped pid\(s\) 50 — port 9099 is free/);
 
   const idle = stopOutcome({ signalled: [], stubborn: [], after: { pids: [] } });
   assert.equal(idle.ok, true);
-  assert.match(idle.message, /nothing was listening on 8081/);
+  assert.match(idle.message, /nothing was listening on 9099/);
 });
 
 test("stopOutcome fails on a listener whose owner cannot be attributed", () => {
@@ -197,7 +197,7 @@ test("stopOutcome fails on a listener whose owner cannot be attributed", () => {
     after: { pids: [], unattributed: true },
   });
   assert.equal(outcome.ok, false);
-  assert.match(outcome.error, /port 8081 is held by a process this script cannot see/);
+  assert.match(outcome.error, /port 9099 is held by a process this script cannot see/);
 });
 
 function fakeProcesses({ pids, ignoresTerm = [] }) {

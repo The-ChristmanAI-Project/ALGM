@@ -8,20 +8,20 @@ import { nitro } from "nitro/vite";
 // lands on the same port as `npm run dev`.
 export default defineConfig(({ command, isPreview }) => ({
   server: {
-    host: "0.0.0.0",
+    host: "127.0.0.1",
     port: 9099,
     strictPort: true,
   },
   preview: {
     host: "127.0.0.1",
-    port: 8081,
+    port: 9099,
     strictPort: true,
   },
   resolve: { tsconfigPaths: true },
   plugins: [
     tailwindcss(),
     tanstackStart(),
-    ...(command === "build" || isPreview ? [nitro({ preset: "vercel" })] : []),
+    ...(command === "build" || isPreview ? [nitro({ preset: process.env.NITRO_PRESET || "vercel" })] : []),
     viteReact(),
   ],
 }));

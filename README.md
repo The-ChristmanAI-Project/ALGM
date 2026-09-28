@@ -44,7 +44,7 @@ sh startup.sh
 | ----------------------------------- | ------------------------------------------ |
 | `npm run dev`                       | Dev server on `9099`                       |
 | `npm run build`                     | Production build                           |
-| `npm run preview`                   | Serve the built output on `127.0.0.1:8081` |
+| `npm run preview`                   | Serve the built output on `127.0.0.1:9099` |
 | `npm run preview:restart` / `:stop` | Manage that preview server                 |
 | `npm test`                          | The catalog and advisor suites             |
 | `npm run typecheck`                 | `tsc --noEmit`                             |

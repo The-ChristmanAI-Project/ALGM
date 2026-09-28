@@ -13,9 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdvisorRouteImport } from './routes/advisor'
 import { Route as HonestyRouteImport } from './routes/honesty'
 import { Route as LearnRouteImport } from './routes/learn'
+import { Route as LiveRouteImport } from './routes/live'
 import { Route as RulesRouteImport } from './routes/rules'
 import { Route as StackRouteImport } from './routes/stack'
 import { Route as WatchRouteImport } from './routes/watch'
+import { Route as ApiLiveAtlasRouteImport } from './routes/api.live-atlas'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 
@@ -39,6 +41,11 @@ const LearnRoute = LearnRouteImport.update({
   path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveRoute = LiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RulesRoute = RulesRouteImport.update({
   id: '/rules',
   path: '/rules',
@@ -52,6 +59,11 @@ const StackRoute = StackRouteImport.update({
 const WatchRoute = WatchRouteImport.update({
   id: '/watch',
   path: '/watch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLiveAtlasRoute = ApiLiveAtlasRouteImport.update({
+  id: '/api/live-atlas',
+  path: '/api/live-atlas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
@@ -70,9 +82,11 @@ export interface FileRoutesByFullPath {
   '/advisor': typeof AdvisorRoute
   '/honesty': typeof HonestyRoute
   '/learn': typeof LearnRouteWithChildren
+  '/live': typeof LiveRoute
   '/rules': typeof RulesRoute
   '/stack': typeof StackRoute
   '/watch': typeof WatchRoute
+  '/api/live-atlas': typeof ApiLiveAtlasRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/learn/': typeof LearnIndexRoute
 }
@@ -80,9 +94,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/advisor': typeof AdvisorRoute
   '/honesty': typeof HonestyRoute
+  '/live': typeof LiveRoute
   '/rules': typeof RulesRoute
   '/stack': typeof StackRoute
   '/watch': typeof WatchRoute
+  '/api/live-atlas': typeof ApiLiveAtlasRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/learn': typeof LearnIndexRoute
 }
@@ -92,9 +108,11 @@ export interface FileRoutesById {
   '/advisor': typeof AdvisorRoute
   '/honesty': typeof HonestyRoute
   '/learn': typeof LearnRouteWithChildren
+  '/live': typeof LiveRoute
   '/rules': typeof RulesRoute
   '/stack': typeof StackRoute
   '/watch': typeof WatchRoute
+  '/api/live-atlas': typeof ApiLiveAtlasRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/learn/': typeof LearnIndexRoute
 }
@@ -105,9 +123,11 @@ export interface FileRouteTypes {
     | '/advisor'
     | '/honesty'
     | '/learn'
+    | '/live'
     | '/rules'
     | '/stack'
     | '/watch'
+    | '/api/live-atlas'
     | '/learn/$slug'
     | '/learn/'
   fileRoutesByTo: FileRoutesByTo
@@ -115,9 +135,11 @@ export interface FileRouteTypes {
     | '/'
     | '/advisor'
     | '/honesty'
+    | '/live'
     | '/rules'
     | '/stack'
     | '/watch'
+    | '/api/live-atlas'
     | '/learn/$slug'
     | '/learn'
   id:
@@ -126,9 +148,11 @@ export interface FileRouteTypes {
     | '/advisor'
     | '/honesty'
     | '/learn'
+    | '/live'
     | '/rules'
     | '/stack'
     | '/watch'
+    | '/api/live-atlas'
     | '/learn/$slug'
     | '/learn/'
   fileRoutesById: FileRoutesById
@@ -138,9 +162,11 @@ export interface RootRouteChildren {
   AdvisorRoute: typeof AdvisorRoute
   HonestyRoute: typeof HonestyRoute
   LearnRoute: typeof LearnRouteWithChildren
+  LiveRoute: typeof LiveRoute
   RulesRoute: typeof RulesRoute
   StackRoute: typeof StackRoute
   WatchRoute: typeof WatchRoute
+  ApiLiveAtlasRoute: typeof ApiLiveAtlasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -173,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live': {
+      id: '/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rules': {
       id: '/rules'
       path: '/rules'
@@ -192,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: '/watch'
       fullPath: '/watch'
       preLoaderRoute: typeof WatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/live-atlas': {
+      id: '/api/live-atlas'
+      path: '/api/live-atlas'
+      fullPath: '/api/live-atlas'
+      preLoaderRoute: typeof ApiLiveAtlasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn/': {
@@ -228,9 +268,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdvisorRoute: AdvisorRoute,
   HonestyRoute: HonestyRoute,
   LearnRoute: LearnRouteWithChildren,
+  LiveRoute: LiveRoute,
   RulesRoute: RulesRoute,
   StackRoute: StackRoute,
   WatchRoute: WatchRoute,
+  ApiLiveAtlasRoute: ApiLiveAtlasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
